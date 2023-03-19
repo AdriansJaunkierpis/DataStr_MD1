@@ -31,6 +31,7 @@ public class MyNodeS<T> {
 		this.prev = prev;
 	}
 	
+	
 	public MyNodeS (T element) {
 		setElement(element);
 	}

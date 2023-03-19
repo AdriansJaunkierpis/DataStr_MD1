@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author p12345678
+ * @author Adrians Jaunkierpis
  *
  */
 module DataStr_MD1 {
