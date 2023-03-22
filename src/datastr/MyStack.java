@@ -20,30 +20,40 @@ public class MyStack<T> {
 		return length;
 	}
 	
-	public void push(T element) {
+	public void push(T element) throws Exception {
 		if (isFull()) {
-			//TODO fix push()
+			throw (new Exception("Stack is full"));
 		}
 		MyNodeS<T> oldTopNode = topNode;
 		topNode = new MyNodeS<T>(element);
 		topNode.setNext(oldTopNode);
-		oldTopNode.setPrev(topNode);
 		length++;
+		if (isEmpty()) {
+			oldTopNode.setPrev(topNode);
+		}
 	}
 	
-	public void pop() {
+	public T pop() throws Exception {
+		if (isEmpty()) {
+			throw (new Exception("Stack is empty"));
+		}
+		MyNodeS<T> oldTopNode = topNode;
 		topNode = topNode.getNext();
 		length--;
+		return oldTopNode.getElement();
 	}
 	
-	public T top() {
-		return (T) topNode.getElement(); //TODO disaster?
+	public T top() throws Exception {
+		if (isEmpty()) {
+			throw (new Exception("Stack is empty"));
+		}
+		return (T) topNode.getElement();
 	}
 	
-	public void print() {
+	public void print() { //TODO warn if empty
 		MyNodeS tempNode = topNode;
 		for (int i = 0; i < length; i++) {
-			System.out.println(tempNode.getElement() + " ");
+			System.out.print(tempNode.getElement() + " ");
 			tempNode = tempNode.getNext();
 		}
 		System.out.println();
