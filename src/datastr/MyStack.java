@@ -28,9 +28,6 @@ public class MyStack<T> {
 		topNode = new MyNodeS<T>(element);
 		topNode.setNext(oldTopNode);
 		length++;
-		if (isEmpty()) {
-			oldTopNode.setPrev(topNode);
-		}
 	}
 	
 	public T pop() throws Exception {
@@ -50,7 +47,7 @@ public class MyStack<T> {
 		return (T) topNode.getElement();
 	}
 	
-	public void print() { //TODO warn if empty
+	public void print() { 
 		MyNodeS tempNode = topNode;
 		for (int i = 0; i < length; i++) {
 			System.out.print(tempNode.getElement() + " ");
@@ -65,5 +62,6 @@ public class MyStack<T> {
 			topNode = topNode.getNext();
 			tempNode.setNext(null);
 		}
+		length = 0;
 	}
 }

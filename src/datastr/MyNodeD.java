@@ -1,9 +1,10 @@
 package datastr;
 
-public class MyNodeS<T> {
+public class MyNodeD<T> {
 	
 	private T element;
-	private MyNodeS next = null;
+	private MyNodeD next = null;
+	private MyNodeD prev = null;
 	
 	public T getElement() {
 		return element;
@@ -16,15 +17,22 @@ public class MyNodeS<T> {
 		}
 	}
 	
-	public MyNodeS getNext() {
+	public MyNodeD getNext() {
 		return next;
 	}
-	public void setNext(MyNodeS next) {
+	public void setNext(MyNodeD next) {
 		this.next = next;
 	}
 	
+	public MyNodeD getPrev() {
+		return prev;
+	}
+	public void setPrev(MyNodeD prev) {
+		this.prev = prev;
+	}
 	
-	public MyNodeS (T element) {
+	
+	public MyNodeD (T element) {
 		setElement(element);
 	}
 }
