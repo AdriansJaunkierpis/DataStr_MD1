@@ -1,5 +1,10 @@
 package service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import datastr.MyDeque;
 import datastr.MyQueue;
 import datastr.MyStack;
@@ -51,9 +56,6 @@ public class MainService {
 		System.out.print("print(): "); studentStack.print();
 		System.out.print("clear(), print(): "); studentStack.clear(); studentStack.print();
 		
-		System.out.println("\n----------------------");
-		System.out.println("Java koda sintakses parbaude");
-		
 		
 		System.out.println("\n----------------------");
 		System.out.println("Empty number Queue tests:");
@@ -94,9 +96,6 @@ public class MainService {
 		System.out.print("dequeue(): "); try { System.out.println(studentQueue.dequeue());} catch (Exception e) {System.out.println(e);}
 		System.out.print("print(): "); studentQueue.print();
 		System.out.print("clear(), print(): "); studentQueue.clear(); studentQueue.print();
-		
-		System.out.println("\n----------------------");
-		System.out.println("Telefona numuri un zvanisanas simulacija");
 		
 		
 		System.out.println("\n----------------------");
@@ -144,5 +143,63 @@ public class MainService {
 		System.out.print("dequeueFromEnd(): "); try { System.out.println(studentDeque.dequeueFromEnd());} catch (Exception e) {System.out.println(e);}
 		System.out.print("print(): "); studentDeque.print();
 		System.out.print("clear(), print(): "); studentDeque.clear(); studentDeque.print();
+		
+		
+		System.out.println("\n----------------------");
+		System.out.println("Java koda sintakses parbaude:");
+		try {
+			System.out.print("Student.java: ");
+			syntaxTest("resources/Student.java");
+			System.out.print("UserController.java: ");
+			syntaxTest("resources/UserController.java");
+			System.out.print("UserServiceImplTest.java: ");
+			syntaxTest("resources/UserServiceImplTest.java");
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		}
+		
+		System.out.println("\n----------------------");
+		System.out.println("Telefona numuri un zvanisanas simulacija:");
+		
+		System.out.println("\n----------------------");
+		System.out.println("Web history:");
+	}
+	
+	public static void syntaxTest(String path) throws FileNotFoundException {
+		File myFile = new File(path);
+		FileInputStream myInputStream = new FileInputStream(myFile);
+		Scanner myScanner = new Scanner(myInputStream);
+		
+		MyStack iekavuStack = new MyStack<>();
+		int row = 1;
+		while(myScanner.hasNextLine()) {
+			String line = myScanner.nextLine();
+			for (int i = 0; i < line.length(); i++) {
+				if (line.charAt(i) == '{' || line.charAt(i) == '('/* || line.charAt(i) == '['*/) {
+					try {
+						iekavuStack.push(line.charAt(i));
+					} catch (Exception e) { System.out.println(e);}
+				}
+				try {
+					if (line.charAt(i) == '}' || line.charAt(i) == ')' /*|| line.charAt(i) == ']'*/) {
+						if (line.charAt(i) == '}' && (char) iekavuStack.top() == '{') {
+							iekavuStack.pop();
+						}
+						else if (line.charAt(i) == ')' && (char) iekavuStack.top() == '(') {
+							iekavuStack.pop();
+						}
+						/*else if (line.charAt(i) == ']' && (char) iekavuStack.top() == '[') {
+							iekavuStack.pop();
+						}*/ else {
+							System.out.println("Error on line: " + row);
+							return;
+						}
+					}
+				} catch (Exception e) { System.out.println(e);}
+			}
+			row++;
+		}
+		iekavuStack.print();
+		System.out.println("File has no errors");
 	}
 }
