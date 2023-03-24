@@ -214,27 +214,35 @@ public class MainService {
 	public static int getRandomNumber(int min, int max) {
 	    return (int) ((Math.random() * (max - min)) + min);
 	}
-	public static void callSimulator() {
+	public static void callSimulator() { //es ceru ka infinite loop ir ok
 		MyQueue callerQueue = new MyQueue<>();
-
-		while (true) {
-			int newCaller = getRandomNumber(10000000, 99999999);
-			try {
-				Thread.sleep(1000);
-			} catch (Exception e) { System.out.println(e);}
-			try {
-				callerQueue.enqueue(newCaller);
-				System.out.println("Call added: ");
-				callerQueue.print();
-				
-				try {
-					Thread.sleep(500);
-				} catch (Exception e) { System.out.println(e);}
-				callerQueue.dequeue();
-				System.out.println("Call finished: ");
-				callerQueue.print();
-			} catch (Exception e) { System.out.println(e);}
-		}
+		
+		Thread thread1 = new Thread () {
+			  public void run () {
+				  while (true) {
+					  try {
+							callerQueue.enqueue(getRandomNumber(10000000, 99999999));
+							System.out.print("\nCall added: ");
+							callerQueue.print();
+							Thread.sleep(1000);
+					  } catch (Exception e) { System.out.println(e);}
+				  } 
+			  }
+			};
+		Thread thread2 = new Thread () {
+			public void run () {
+				while (true) {
+					try {
+						callerQueue.dequeue();
+						System.out.print("Call finished, remaining: ");
+						callerQueue.print();
+						Thread.sleep(1700);
+				  } catch (Exception e) { System.out.println(e);}
+				}
+		  }
+		};
+		thread1.start();
+		thread2.start();
 	}
 	
 	public static void webHistory() {
