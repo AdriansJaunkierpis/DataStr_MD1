@@ -166,7 +166,7 @@ public class MainService {
 		Scanner myScanner = new Scanner(System.in);
 	    String userInput = myScanner.nextLine();
 	    if (userInput.charAt(0) == '0') {
-	    	
+	    	callSimulator();
 	    }
 	    if (userInput.charAt(0) == '1') {
 	    	webHistory();
@@ -209,6 +209,32 @@ public class MainService {
 		}
 		iekavuStack.print();
 		System.out.println("File has no errors");
+	}
+	
+	public static int getRandomNumber(int min, int max) {
+	    return (int) ((Math.random() * (max - min)) + min);
+	}
+	public static void callSimulator() {
+		MyQueue callerQueue = new MyQueue<>();
+
+		while (true) {
+			int newCaller = getRandomNumber(10000000, 99999999);
+			try {
+				Thread.sleep(1000);
+			} catch (Exception e) { System.out.println(e);}
+			try {
+				callerQueue.enqueue(newCaller);
+				System.out.println("Call added: ");
+				callerQueue.print();
+				
+				try {
+					Thread.sleep(500);
+				} catch (Exception e) { System.out.println(e);}
+				callerQueue.dequeue();
+				System.out.println("Call finished: ");
+				callerQueue.print();
+			} catch (Exception e) { System.out.println(e);}
+		}
 	}
 	
 	public static void webHistory() {
