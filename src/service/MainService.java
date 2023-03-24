@@ -158,11 +158,19 @@ public class MainService {
 			System.out.println(e);
 		}
 		
-		System.out.println("\n----------------------");
-		System.out.println("Telefona numuri un zvanisanas simulacija:");
 		
 		System.out.println("\n----------------------");
-		System.out.println("Web history:");
+		System.out.println("Telefona numuri un zvanisanas simulacija (Press 0):");
+		System.out.println("Web history (Press 1):");
+		System.out.print("Choose which function to start: ");
+		Scanner myScanner = new Scanner(System.in);
+	    String userInput = myScanner.nextLine();
+	    if (userInput.charAt(0) == '0') {
+	    	
+	    }
+	    if (userInput.charAt(0) == '1') {
+	    	webHistory();
+	    }
 	}
 	
 	public static void syntaxTest(String path) throws FileNotFoundException {
@@ -201,5 +209,31 @@ public class MainService {
 		}
 		iekavuStack.print();
 		System.out.println("File has no errors");
+	}
+	
+	public static void webHistory() {
+		MyDeque webDeque = new MyDeque<>();
+		Scanner myScanner = new Scanner(System.in);
+		String userInput = "temp";
+		System.out.println("\nEnter '0' to quit");
+		while (userInput.charAt(0) != '0' || userInput.length() > 1) {
+			System.out.println("Enter the website URL: ");
+			userInput = myScanner.nextLine();
+			if (userInput.charAt(0) == '1' && userInput.length() == 1) {
+				try {
+					System.out.println(webDeque.dequeueFromFront());
+				} catch (Exception e) { System.out.println(e);}
+			} else {
+				try {
+					webDeque.enqueueAtFront(userInput);
+				} catch (Exception e) { System.out.println(e);}
+				if (webDeque.size() >= 11) {
+					try {
+						webDeque.dequeueFromEnd();
+					} catch (Exception e) { System.out.println(e);}
+				}
+			}
+			//webDeque.print();
+		}
 	}
 }
